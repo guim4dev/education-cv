@@ -36,7 +36,6 @@ password = login(login_blocks)
 if is_authenticated(password):
     clean_blocks(login_blocks)
     main()
-    st.sidebar.text("Menu Lateral")
     st.sidebar.button("Relatório por Aluno")
     st.sidebar.button("Top 10 emoções")
     st.sidebar.button("Melhores momentos da aula")
