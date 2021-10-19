@@ -28,19 +28,17 @@ def login(blocks):
     return blocks[1].text_input('ID da Aula')
 
 def main():
-
     st.balloons()
 
 login_blocks = generate_login_block()
 password = login(login_blocks)
 
-st.sidebar.text("Menu Lateral")
-st.sidebar.button("Relatório por Aluno")
-st.sidebar.button("Top 10 emoções")
-st.sidebar.button("Melhores momentos da aula")
-
 if is_authenticated(password):
     clean_blocks(login_blocks)
     main()
+    st.sidebar.text("Menu Lateral")
+    st.sidebar.button("Relatório por Aluno")
+    st.sidebar.button("Top 10 emoções")
+    st.sidebar.button("Melhores momentos da aula")
 elif password:
     st.info("Aula não encontrada. Por favor, insira um ID válido.")
