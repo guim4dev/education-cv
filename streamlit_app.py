@@ -1,5 +1,4 @@
 import streamlit as st
-import hydralit_components as hc
 import pandas as pd
 
 st.title("Relatório de Aula")
