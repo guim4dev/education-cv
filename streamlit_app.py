@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import time
 
 st.title("Relatório de Aula")
 df = pd.read_csv('data/emocoes.csv')
@@ -73,17 +72,12 @@ password = login(login_blocks)
 drive_block = st.empty()
 google_drive = drive_block.text_input('Link da aula para processamento', '')
 id_block = st.empty()
-my_bar = st.progress(0)
 
 if google_drive != '':
-    for percent_complete in range(100):
-        time.sleep(0.05)
-        my_bar.progress(percent_complete + 1)
     drive_block.empty()
     id_block.text("ID da Aula processada: 182916f6-756d-40d6-95fc-3283ba5efdf8")
 
 if is_authenticated(password):
-    my_bar.empty()
     id_block.empty()
     drive_block.empty()
     clean_blocks(login_blocks)
