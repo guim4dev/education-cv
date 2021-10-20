@@ -79,6 +79,7 @@ if google_drive != '':
 
 if is_authenticated(password):
     id_block.empty()
+    drive_block.empty()
     clean_blocks(login_blocks)
     st.balloons()
     graph_columns()
