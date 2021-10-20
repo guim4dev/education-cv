@@ -27,6 +27,10 @@ def graph_columns():
     col1, col2 = st.columns(2)
     col1.metric("Número de Alunos Desinteressados", "8", "4")
     col2.metric("Porcentagem de Alunos Interessados", "50%", "-25%")
+   
+    col3, col4 = st.columns(2)    
+    col3.metric("A maior duração de tempo de interesse", "600s", "200")
+    col4.metric("Qual a emoção que mais apareceu no histórico", "Fadiga", "Alegria", delta_color="off")
 
 def login(blocks):
     return blocks[1].text_input('ID da Aula')
