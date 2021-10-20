@@ -23,6 +23,10 @@ def clean_blocks(blocks):
     for block in blocks:
         block.empty()
 
+def graph_columns():
+    col1, col2 = st.columns(2)
+    col1.metric("Número de Alunos Desinteressados", "8", "4")
+    col2.metric("Porcentagem de Alunos Interessados", "50%", "-25%")
 
 def login(blocks):
     return blocks[1].text_input('ID da Aula')
