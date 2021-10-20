@@ -1,17 +1,50 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+import plotly.express as px
 
 st.title("Relatório de Aula")
+df = pd.read_csv('data/emocoes.csv')
+agg = pd.read_csv('data/agg.csv')
 
-@st.cache
-def load_data():
-    return pd.read_csv('data/emotions.csv')
+Engajado = df[df['emocao'] == 'Engajado']
+Engajado_agg = Engajado.groupby(['emocao', 'pessoa']).size().reset_index(name='size')
+Engajado_agg = Engajado_agg.sort_values(by=['size'], ascending=False)
+
+emotions_count = df.value_counts('emocao').reset_index()
 
 
 def is_authenticated(password):
     return password == "182916f6-756d-40d6-95fc-3283ba5efdf8"
 
 
+def generate_time_agg_graph():
+    fig = px.line(agg, x="tempo", y="size", labels= { 'tempo': 'tempo (s)',
+                                                      'size': 'número de alunos' }, color='emocao', title='Emoções ao longo do tempo')
+    st.plotly_chart(fig, use_container_width=True)
+
+    
+def generate_top_students():
+    st.markdown('<br/>', unsafe_allow_html=True)
+    st.markdown("<center style='font-size:2em'=>Alunos Mais Engajados</center>", unsafe_allow_html=True)
+    top_three = Engajado_agg.head(3).to_numpy()
+    for row in top_three:
+        st.markdown(f"<center><span style='color:#00FF00;font-size:1.5em'>{row[1]}</span></center>", unsafe_allow_html=True)
+    st.markdown('<br/>', unsafe_allow_html=True)
+
+
+def generate_bottom_students():
+    st.markdown("<center style='font-size:2em'>Alunos Menos Engajados</center>", unsafe_allow_html=True)
+    bottom_three = np.flip(Engajado_agg.tail(3).to_numpy(), 0)
+    for row in bottom_three:
+        st.write(f"<center><span style='color:red;font-size:1.5em'>{row[1]}</span></center>", unsafe_allow_html=True)
+    st.markdown('<br/> <br/>', unsafe_allow_html=True)
+
+
+def generate_emotions_pizza():
+    fig = px.pie(emotions_count, values=emotions_count.index, names='emocao', title='Predominância de Emoções')
+    st.plotly_chart(fig, use_container_width=True)
+    
 def generate_login_block():
     block1 = st.empty()
     block2 = st.empty()
@@ -23,30 +56,23 @@ def clean_blocks(blocks):
     for block in blocks:
         block.empty()
 
+
 def graph_columns():
-    col1, col2 = st.columns(2)
-    col1.metric("Número de Alunos Desinteressados", "8", "4")
-    col2.metric("Porcentagem de Alunos Interessados", "50%", "-25%")
-   
-    col3, col4 = st.columns(2)    
-    col3.metric("A maior duração de tempo de interesse", "600s", "200")
-    col4.metric("Qual a emoção que mais apareceu no histórico", "Fadiga", "Alegria", delta_color="off")
+    generate_time_agg_graph()
+    generate_top_students()
+    generate_bottom_students()
+    generate_emotions_pizza()
+
 
 def login(blocks):
     return blocks[1].text_input('ID da Aula')
-
-def main():
-    st.balloons()
 
 login_blocks = generate_login_block()
 password = login(login_blocks)
 
 if is_authenticated(password):
     clean_blocks(login_blocks)
-    main()
-    st.sidebar.button("Relatório por Aluno")
-    st.sidebar.button("Top 10 emoções")
-    st.sidebar.button("Melhores momentos da aula")
+    st.balloons()
     graph_columns()
 elif password:
     st.info("Aula não encontrada. Por favor, insira um ID válido.")
