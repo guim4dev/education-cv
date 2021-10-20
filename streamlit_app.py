@@ -38,15 +38,6 @@ def login(blocks):
 def main():
     st.balloons()
 
-st.set_page_config(
-    page_title="Ânima",
-    layout="wide",
-    menu_items={
-        'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug"
-    }
-)
-
 login_blocks = generate_login_block()
 password = login(login_blocks)
 
