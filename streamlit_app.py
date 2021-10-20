@@ -75,6 +75,7 @@ google_drive = drive_block.text_input('Link da aula para processamento', '')
 id_block = st.empty()
 
 if google_drive != '':
+    google_drive = ''
     drive_block.empty()
     with st.spinner('Aguarde enquanto processamos sua aula.'):
         time.sleep(5)
