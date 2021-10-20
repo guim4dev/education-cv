@@ -43,5 +43,6 @@ if is_authenticated(password):
     st.sidebar.button("Relatório por Aluno")
     st.sidebar.button("Top 10 emoções")
     st.sidebar.button("Melhores momentos da aula")
+    graph_columns()
 elif password:
     st.info("Aula não encontrada. Por favor, insira um ID válido.")
