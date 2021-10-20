@@ -79,9 +79,11 @@ if google_drive != '':
     with st.spinner('Aguarde enquanto processamos sua aula.'):
         time.sleep(5)
         st.success('Pronto! ID da Aula processada: 182916f6-756d-40d6-95fc-3283ba5efdf8')
+        google_drive = ''
     google_drive = ''
 
 if is_authenticated(password):
+    google_drive = ''
     id_block.empty()
     drive_block.empty()
     clean_blocks(login_blocks)
