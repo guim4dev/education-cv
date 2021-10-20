@@ -40,15 +40,13 @@ def main():
 
 st.set_page_config(
     page_title="Ânima",
-    page_icon="👨‍🏫",
     layout="wide",
-    initial_sidebar_state="expanded",
     menu_items={
         'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug",
-        'About': "# This is a header. This is an *extremely* cool app!"
+        'Report a bug': "https://www.extremelycoolapp.com/bug"
     }
 )
+
 login_blocks = generate_login_block()
 password = login(login_blocks)
 
