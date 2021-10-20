@@ -69,8 +69,16 @@ def login(blocks):
 
 login_blocks = generate_login_block()
 password = login(login_blocks)
+drive_block = st.empty()
+google_drive = drive_block.text_input('Link da aula para processamento', '')
+id_block = st.empty()
+
+if google_drive != '':
+    drive_block.empty()
+    id_block.text("ID da Aula processada: 182916f6-756d-40d6-95fc-3283ba5efdf8")
 
 if is_authenticated(password):
+    id_block.empty()
     clean_blocks(login_blocks)
     st.balloons()
     graph_columns()
